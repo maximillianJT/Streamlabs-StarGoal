@@ -1,0 +1,57 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww9000\viewh5040\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0  const startLabel = document.querySelector('#goal-current');\
+  const goalLabel = document.querySelector('#goal-total');\
+  const progress = document.querySelector('#goal-progress');\
+  const bar = document.querySelector('#bar');\
+  const title = document.querySelector('#title');\
+  const timer = document.querySelector('#goal-end-date');\
+  const cont = document.querySelector('.goal-cont');\
+	\
+\
+  var audio = new Audio();\
+      audio.src = "https://cdn.streamlabs.com/users/30814315/library/marioCoin.mp3";\
+  \
+  function updateData(data) \{\
+    \
+\
+    let p = data.amount.current  / data.amount.target  * 100;\
+    if (p < 0) p = 0;\
+    if (p > 100) p = 100;\
+    let finalPercent = data.amount.current  / data.amount.target  * 100;\
+    if (finalPercent < 0) finalPercent = 0;\
+    if (finalPercent > 100) finalPercent = 100;\
+    startLabel.textContent = data.amount.current;\
+    goalLabel.textContent = data.amount.target;\
+    bar.style.width = `$\{finalPercent\}%`;\
+    \
+    let formatFinalPercent = Math.trunc(finalPercent);\
+    Math.floor(p);\
+    audio.play();\
+    \
+    \
+     if(finalPercent >= 100)\{\
+       bar.style.background = "green";\
+     \} 	 		\
+    \
+      \
+     \
+    setTimeout(()=>\{cont.classList.add("run_animation");\}, 100);\
+    setTimeout(()=>\{cont.classList.remove("run_animation");\}, 7000);\
+  \}\
+\
+\
+  function eventListener(e) \{\
+    updateData(e.detail);\
+  \}\
+  \
+  document.addEventListener('goalLoad', eventListener);\
+  document.addEventListener('goalEvent', eventListener);\
+\
+\
+}
